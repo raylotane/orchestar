@@ -11,7 +11,7 @@ import { OpeningScene } from "./OpeningScene";
 import { SloganScene } from "./SloganScene";
 import { FeaturesScene } from "./FeaturesScene";
 import { ClosingScene } from "./ClosingScene";
-import { CoffeeBrandProps } from "../../types/constants";
+import { CoffeeBrandProps } from "./types";
 
 // Scene durations (in frames @ 30fps)
 const OPENING_DURATION = 90; // 3s

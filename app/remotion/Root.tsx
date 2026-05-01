@@ -6,13 +6,15 @@ import {
   VIDEO_FPS,
   VIDEO_HEIGHT,
   VIDEO_WIDTH,
-  COFFEE_COMP_NAME,
-  defaultCoffeeBrandProps,
-  COFFEE_DURATION_IN_FRAMES,
 } from "../types/constants";
 import { Main } from "./MyComp/Main";
 import { NextLogo } from "./MyComp/NextLogo";
-import { CoffeeBrandVideo } from "./CoffeeBrand/CoffeeBrandVideo";
+import {
+  CoffeeBrandVideo,
+  COFFEE_COMP_NAME,
+  COFFEE_DURATION_IN_FRAMES,
+  defaultCoffeeBrandProps,
+} from "./CoffeeBrand";
 
 export const RemotionRoot: React.FC = () => {
   return (
