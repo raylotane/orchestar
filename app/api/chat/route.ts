@@ -1,13 +1,27 @@
 import { deepseek } from "@ai-sdk/deepseek";
-import { convertToModelMessages, ToolLoopAgent, UIMessage } from "ai";
+import { convertToModelMessages, tool, ToolLoopAgent, UIMessage } from "ai";
 import { sceneRegistry } from "@/lib/scene-registry";
 import { coffeeSceneDef } from "@/app/remotion/CoffeeBrand/types"
+import z from "zod";
 
 
 sceneRegistry.register(coffeeSceneDef)
 
 const SCENE_CONTEXT = sceneRegistry.toSystemPrompt()
 
+const getScenePropsSchema = tool({
+  description: "获取场景模版的schema，用于生成props",
+  inputSchema: z.object({
+    sceneId: z.string(),
+  }),
+  execute: async ({ sceneId }) => {
+    const scene = sceneRegistry.get(sceneId);
+    if (!scene) {
+      return { error: `未找到场景: ${sceneId}`, availableScenes: sceneRegistry.list().map((s) => s.id) };
+    }
+    return scene.propsSchema
+  },
+})
 
 const mainAgent = new ToolLoopAgent({
   model: deepseek('deepseek-reasoner'),
@@ -20,6 +34,7 @@ const mainAgent = new ToolLoopAgent({
     "你可以使用 generateSceneProps 工具来为用户生成视频场景的配置参数。",
   ].join("\n"),
   tools: {
+    getScenePropsSchema,
     /**
      * 根据用户意图生成指定场景的 props 配置。
      * AI 调用此工具后返回的 props 可直接传给 Remotion 渲染引擎使用。

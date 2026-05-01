@@ -15,18 +15,10 @@ import {
   MessageContent,
   MessageResponse,
 } from "@/components/ai-elements/message";
-// import {
-//   Message,
-//   MessageContent,
-//   MessageResponse,
-// } from "@/components/ai-elements/message";
 
 export interface IMessageContainerProps
   extends React.HTMLAttributes<HTMLDivElement> {
   messages: UIMessage[];
-  // onSelectPrompt?: (prompt: string) => void;
-  // chatStatus?: "ready" | "streaming" | "submitted" | "error";
-  // onNewConversation: () => void;
 }
 
 const MessageContainer: React.FC<IMessageContainerProps> = ({
@@ -34,7 +26,7 @@ const MessageContainer: React.FC<IMessageContainerProps> = ({
   messages,
 }) => {
   return (
-    <div className={cn(className)}>
+    <div className={cn(className, "h-full overflow-x-hidden")}>
       <Conversation>
         <ConversationContent>
           {messages.length === 0 ? (
@@ -64,7 +56,6 @@ const MessageContainer: React.FC<IMessageContainerProps> = ({
             ))
           )}
         </ConversationContent>
-        <ConversationDownload messages={messages} />
         <ConversationScrollButton />
       </Conversation>
     </div>

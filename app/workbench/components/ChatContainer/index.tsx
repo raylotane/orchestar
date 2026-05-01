@@ -11,7 +11,7 @@ const ChatContainer: React.FC = () => {
   const { messages, sendMessage } = useChat();
 
   return (
-    <div className="flex flex-col h-full gap-2 py-2">
+    <div className="flex flex-col gap-2 py-2 h-full">
       <MessageContainer className="px-2 flex-1" messages={messages} />
 
       <ChatInput
