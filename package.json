@@ -6,12 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "remotion": "remotion studio app/remotion/index.ts",
+    "render": "remotion render",
+    "deploy": "node deploy.mjs"
   },
   "dependencies": {
+    "@remotion/cli": "^4.0.454",
+    "@remotion/google-fonts": "^4.0.454",
+    "@remotion/paths": "^4.0.454",
+    "@remotion/tailwind-v4": "^4.0.454",
     "next": "16.2.4",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "remotion": "^4.0.454",
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
