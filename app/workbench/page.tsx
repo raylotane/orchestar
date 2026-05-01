@@ -5,6 +5,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import ChatContainer from "./components/ChatContainer";
+import VideoContainer from "./components/VideoContainer";
 
 const page: React.FC = () => {
   return (
@@ -14,7 +15,9 @@ const page: React.FC = () => {
           <ChatContainer />
         </ResizablePanel>
         <ResizableHandle withHandle className="bg-neutral-500" />
-        <ResizablePanel minSize={"50%"}>Two</ResizablePanel>
+        <ResizablePanel minSize={"50%"}>
+          <VideoContainer />
+        </ResizablePanel>
       </ResizablePanelGroup>
     </div>
   );
