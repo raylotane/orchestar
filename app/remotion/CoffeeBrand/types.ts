@@ -14,13 +14,11 @@ export const CoffeeBrandProps = z.object({
   socialPlatform: z.string().optional().describe("社交平台")
 });
 
-export const CoffeeBrandSceneProps = z.object({
+export const CoffeeBrandSceneZod = z.object({
   name: z.string().describe("场景名称"),
   description: z.string().describe("场景描述"),
   props: CoffeeBrandProps.describe("场景属性")
 });
-
-console.log("CoffeeBrandSceneProps", CoffeeBrandSceneProps)
 
 export const defaultCoffeeBrandProps: z.infer<typeof CoffeeBrandProps> = {
   brandName: "AROMISTA",
