@@ -1,0 +1,23 @@
+import React from "react";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
+import ChatContainer from "./components/ChatContainer";
+
+const page: React.FC = () => {
+  return (
+    <div className="h-screen w-full">
+      <ResizablePanelGroup orientation="horizontal">
+        <ResizablePanel>
+          <ChatContainer />
+        </ResizablePanel>
+        <ResizableHandle withHandle className="bg-neutral-500" />
+        <ResizablePanel minSize={"50%"}>Two</ResizablePanel>
+      </ResizablePanelGroup>
+    </div>
+  );
+};
+
+export default page;
