@@ -2,13 +2,13 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, Easing } from "remotion";
 import { CoffeeBeanIcon } from "./CoffeeCup";
 
-interface FeatureItem {
+export interface FeatureItem {
   icon: string;
   title: string;
   desc: string;
 }
 
-const features: FeatureItem[] = [
+const defaultFeatures: FeatureItem[] = [
   {
     icon: "bean",
     title: "精选豆源",
@@ -54,7 +54,11 @@ const FeatureIcon: React.FC<{ type: string; size?: number }> = ({ type, size = 4
   );
 };
 
-export const FeaturesScene: React.FC = () => {
+interface FeaturesSceneProps {
+  features?: FeatureItem[];
+}
+
+export const FeaturesScene: React.FC<FeaturesSceneProps> = ({ features = defaultFeatures }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 

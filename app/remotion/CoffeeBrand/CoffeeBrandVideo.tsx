@@ -1,5 +1,9 @@
 import React from "react";
-import { TransitionSeries, linearTiming, springTiming } from "@remotion/transitions";
+import {
+  TransitionSeries,
+  linearTiming,
+  springTiming,
+} from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { slide } from "@remotion/transitions/slide";
 import { z } from "zod";
@@ -10,16 +14,18 @@ import { ClosingScene } from "./ClosingScene";
 import { CoffeeBrandProps } from "../../types/constants";
 
 // Scene durations (in frames @ 30fps)
-const OPENING_DURATION = 90;   // 3s
-const SLOGAN_DURATION = 120;   // 4s
+const OPENING_DURATION = 90; // 3s
+const SLOGAN_DURATION = 120; // 4s
 const FEATURES_DURATION = 120; // 4s
-const CLOSING_DURATION = 120;   // 4s
+const CLOSING_DURATION = 120; // 4s
 
 const TRANSITION_FRAMES = 18;
 
 export const CoffeeBrandVideo: React.FC<z.infer<typeof CoffeeBrandProps>> = ({
   brandName,
   tagline,
+  features,
+  socialPlatform,
 }) => {
   return (
     <TransitionSeries>
@@ -30,7 +36,10 @@ export const CoffeeBrandVideo: React.FC<z.infer<typeof CoffeeBrandProps>> = ({
 
       <TransitionSeries.Transition
         presentation={fade()}
-        timing={springTiming({ config: { damping: 200 }, durationInFrames: TRANSITION_FRAMES })}
+        timing={springTiming({
+          config: { damping: 200 },
+          durationInFrames: TRANSITION_FRAMES,
+        })}
       />
 
       {/* Scene 2: Slogan / Tagline */}
@@ -45,17 +54,20 @@ export const CoffeeBrandVideo: React.FC<z.infer<typeof CoffeeBrandProps>> = ({
 
       {/* Scene 3: Features */}
       <TransitionSeries.Sequence durationInFrames={FEATURES_DURATION}>
-        <FeaturesScene />
+        <FeaturesScene features={features} />
       </TransitionSeries.Sequence>
 
       <TransitionSeries.Transition
         presentation={fade()}
-        timing={springTiming({ config: { damping: 180 }, durationInFrames: TRANSITION_FRAMES })}
+        timing={springTiming({
+          config: { damping: 180 },
+          durationInFrames: TRANSITION_FRAMES,
+        })}
       />
 
       {/* Scene 4: Closing / CTA */}
       <TransitionSeries.Sequence durationInFrames={CLOSING_DURATION}>
-        <ClosingScene brandName={brandName} />
+        <ClosingScene brandName={brandName} socialPlatform={socialPlatform} />
       </TransitionSeries.Sequence>
     </TransitionSeries>
   );

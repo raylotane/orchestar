@@ -1,8 +1,17 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, Easing } from "remotion";
+import {
+  AbsoluteFill,
+  useCurrentFrame,
+  useVideoConfig,
+  interpolate,
+  Easing,
+} from "remotion";
 import { CoffeeBeanIcon } from "./CoffeeCup";
 
-export const ClosingScene: React.FC<{ brandName: string }> = ({ brandName }) => {
+export const ClosingScene: React.FC<{
+  brandName: string;
+  socialPlatform?: string;
+}> = ({ brandName, socialPlatform }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -35,7 +44,11 @@ export const ClosingScene: React.FC<{ brandName: string }> = ({ brandName }) => 
     frame,
     [fps * 1.5, fps * 2.2, fps * 3],
     [0.3, 0.7, 0.3],
-    { extrapolateRight: "clamp", extrapolateLeft: "clamp", easing: Easing.inOut(Easing.sin) }
+    {
+      extrapolateRight: "clamp",
+      extrapolateLeft: "clamp",
+      easing: Easing.inOut(Easing.sin),
+    }
   );
 
   // Corner decorations
@@ -51,7 +64,8 @@ export const ClosingScene: React.FC<{ brandName: string }> = ({ brandName }) => 
     <AbsoluteFill
       className="justify-center items-center"
       style={{
-        background: "linear-gradient(135deg, #0d0705 0%, #1a0e0a 50%, #0a0503 100%)",
+        background:
+          "linear-gradient(135deg, #0d0705 0%, #1a0e0a 50%, #0a0503 100%)",
       }}
     >
       {/* Corner decorations */}
@@ -124,10 +138,16 @@ export const ClosingScene: React.FC<{ brandName: string }> = ({ brandName }) => 
 
         {/* Decorative divider */}
         {(() => {
-          const divWidth = interpolate(frame, [fps * 0.8, fps * 1.3], [0, 100], {
-            extrapolateRight: "clamp", extrapolateLeft: "clamp",
-            easing: Easing.out(Easing.cubic),
-          });
+          const divWidth = interpolate(
+            frame,
+            [fps * 0.8, fps * 1.3],
+            [0, 100],
+            {
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+              easing: Easing.out(Easing.cubic),
+            }
+          );
           return (
             <div
               style={{
@@ -139,9 +159,21 @@ export const ClosingScene: React.FC<{ brandName: string }> = ({ brandName }) => 
                 marginBottom: 32,
               }}
             >
-              <div style={{ width: divWidth, height: 1, background: "linear-gradient(to left, #C4A77D, transparent)" }} />
+              <div
+                style={{
+                  width: divWidth,
+                  height: 1,
+                  background: "linear-gradient(to left, #C4A77D, transparent)",
+                }}
+              />
               <CoffeeBeanIcon size={20} />
-              <div style={{ width: divWidth, height: 1, background: "linear-gradient(to right, #C4A77D, transparent)" }} />
+              <div
+                style={{
+                  width: divWidth,
+                  height: 1,
+                  background: "linear-gradient(to right, #C4A77D, transparent)",
+                }}
+              />
             </div>
           );
         })()}
@@ -179,7 +211,9 @@ export const ClosingScene: React.FC<{ brandName: string }> = ({ brandName }) => 
               fontSize: 16,
               fontFamily: "Georgia, serif",
               letterSpacing: 4,
-              boxShadow: `0 0 ${30 * glowPulse}px rgba(212,165,116,${glowPulse * 0.3})`,
+              boxShadow: `0 0 ${30 * glowPulse}px rgba(212,165,116,${
+                glowPulse * 0.3
+              })`,
             }}
           >
             立即探索 →
@@ -188,9 +222,15 @@ export const ClosingScene: React.FC<{ brandName: string }> = ({ brandName }) => 
 
         {/* Social / Contact */}
         {(() => {
-          const socialOpacity = interpolate(frame, [fps * 2, fps * 2.7], [0, 0.5], {
-            extrapolateRight: "clamp", extrapolateLeft: "clamp",
-          });
+          const socialOpacity = interpolate(
+            frame,
+            [fps * 2, fps * 2.7],
+            [0, 0.5],
+            {
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }
+          );
           return (
             <div
               style={{
@@ -202,7 +242,7 @@ export const ClosingScene: React.FC<{ brandName: string }> = ({ brandName }) => 
                 letterSpacing: 2,
               }}
             >
-              www.aromista-coffee.com
+              {socialPlatform}
             </div>
           );
         })()}
