@@ -2,8 +2,23 @@
 
 import React from "react";
 import { Player } from "@remotion/player";
-import { initScene } from "@/app/types/constants";
 import { CoffeeBrandVideo } from "@/app/remotion/CoffeeBrand";
+import {
+  COFFEE_COMP_NAME,
+  COFFEE_DURATION_IN_FRAMES,
+  defaultCoffeeBrandProps,
+} from "@/app/remotion/CoffeeBrand/types";
+
+export const initScene = {
+  id: COFFEE_COMP_NAME,
+  props: defaultCoffeeBrandProps,
+  meta: {
+    durationInFrames: COFFEE_DURATION_IN_FRAMES,
+    fps: 30,
+    width: 1280,
+    height: 720,
+  },
+};
 
 const VideoContainer: React.FC = () => {
   const { props, meta } = initScene;
