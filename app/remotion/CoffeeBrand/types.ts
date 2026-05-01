@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { type ISceneDefinition } from "@/lib/scene-registry";
 
 // ===== Coffee Brand Video Config =====
 export const COFFEE_COMP_NAME = "CoffeeBrandVideo";
@@ -12,12 +13,6 @@ export const CoffeeBrandProps = z.object({
     desc: z.string(),
   })),
   socialPlatform: z.string().optional().describe("社交平台")
-});
-
-export const CoffeeBrandSceneZod = z.object({
-  name: z.string().describe("场景名称"),
-  description: z.string().describe("场景描述"),
-  props: CoffeeBrandProps.describe("场景属性")
 });
 
 export const defaultCoffeeBrandProps: z.infer<typeof CoffeeBrandProps> = {
@@ -42,3 +37,20 @@ export const defaultCoffeeBrandProps: z.infer<typeof CoffeeBrandProps> = {
 };
 
 export const COFFEE_DURATION_IN_FRAMES = 450; // 15 seconds @ 30fps
+
+// ===== Register to global scene registry =====
+
+export const coffeeSceneDef: ISceneDefinition = {
+  id: COFFEE_COMP_NAME,
+  name: "Coffee Brand Promo",
+  description:
+    "咖啡品牌宣传视频模板，包含开场动画、标语展示、产品特色卡片、结尾CTA等分镜。适用于咖啡店、烘焙品牌、精品咖啡等推广场景。",
+  propsSchema: CoffeeBrandProps,
+  defaultProps: defaultCoffeeBrandProps,
+  meta: {
+    durationInFrames: COFFEE_DURATION_IN_FRAMES,
+    fps: 30,
+    width: 1280,
+    height: 720,
+  },
+};
