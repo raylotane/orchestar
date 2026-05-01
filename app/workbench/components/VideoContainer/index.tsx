@@ -29,6 +29,7 @@ const VideoContainer: React.FC<IVideoContainerProps> = ({ videoInfo }) => {
             fps={VIDEO_FPS}
             compositionHeight={VIDEO_HEIGHT}
             compositionWidth={VIDEO_WIDTH}
+            acknowledgeRemotionLicense
             style={{
               // Can't use tailwind class for width since player's default styles take presedence over tailwind's,
               // but not over inline styles
