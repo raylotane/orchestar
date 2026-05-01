@@ -20,6 +20,9 @@ importers:
       '@remotion/tailwind-v4':
         specifier: ^4.0.454
         version: 4.0.454(@remotion/bundler@4.0.454(@swc/helpers@0.5.15)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(webpack@5.105.0)
+      '@remotion/transitions':
+        specifier: ^4.0.455
+        version: 4.0.455(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next:
         specifier: 16.2.4
         version: 16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -715,6 +718,9 @@ packages:
   '@remotion/paths@4.0.454':
     resolution: {integrity: sha512-tkXwcuW2NNIAEAdR69RCVdS4FY0EmKJfNhQe1KqnsmDysctf58IKCbOpQzlwPqqCP3HYpNZQzqXNCvW/E3b2cA==}
 
+  '@remotion/paths@4.0.455':
+    resolution: {integrity: sha512-AWAYHSsEaqTzkY2SnLr4SQMqkoDL+raeYWD/d2ZvGaFCENkg1AzipUtJZDfJFMVOast5L6i/F8FU0wVI2atBCg==}
+
   '@remotion/player@4.0.454':
     resolution: {integrity: sha512-Q4fEWapH21uEErdOfZxagOQcxbf/JGxPwqBOrW/NG9Y5qHgMMe5tBUCnr8rEqOA4txW/S4QHnN9HGWfV2nIvTg==}
     peerDependencies:
@@ -723,6 +729,12 @@ packages:
 
   '@remotion/renderer@4.0.454':
     resolution: {integrity: sha512-Zq9pUEyHi02uoAnvSZ5G0Bu+NLtEq6ZUJMexw+O0sY3ZmG4XqujjcnIx3ktJAXwVv61qvXoP1Mvs4LV9aaoUFw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+
+  '@remotion/shapes@4.0.455':
+    resolution: {integrity: sha512-64DLMllZOwZTCPB2y3a8oWRRm6FJ5DAhINWIsB0nyxFoIQZ9tm0od27kSCra0GeiD0Cr+bE06BLS17w/XIQgYw==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
@@ -746,6 +758,12 @@ packages:
     resolution: {integrity: sha512-DK5YCuX0sBjYg4fT9WQO9oRHINbSWJb5+OzMR4M3dLIqDewl/Y5Cmne+dNb70FKFKXe6YS+5URDDSZk/mvFgQA==}
     peerDependencies:
       '@remotion/bundler': 4.0.454
+
+  '@remotion/transitions@4.0.455':
+    resolution: {integrity: sha512-rYP3o4nYS39mQUDcNoULqgfb76S3jTKAkgChGnmiLSippx5ofMV8wKZVEIUHXcA54dDBgPwh5jB6V7w7LM4QTA==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   '@remotion/web-renderer@4.0.454':
     resolution: {integrity: sha512-OBPG3fL40hxJ+cwlBAoN+0AuRlqe47/wKYxkOu9ZZ2Pug3tR+Ph8WPjqRL7ZuwqYsauvjwkooCdHq5Z41DAk+A==}
@@ -2571,6 +2589,12 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
 
+  remotion@4.0.455:
+    resolution: {integrity: sha512-3phzHoPtFcsA1lqXgW039nc80egPNZ7ctDLwQm37JGHMh7yqehiqRfyT+8FKdovyUjnQ3ye7ivMJy/fmI9ssZw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+
   require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
@@ -3544,6 +3568,8 @@ snapshots:
 
   '@remotion/paths@4.0.454': {}
 
+  '@remotion/paths@4.0.455': {}
+
   '@remotion/player@4.0.454(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       react: 19.2.4
@@ -3573,6 +3599,12 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
+
+  '@remotion/shapes@4.0.455(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@remotion/paths': 4.0.455
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   '@remotion/streaming@4.0.454': {}
 
@@ -3639,6 +3671,14 @@ snapshots:
       tailwindcss: 4.2.0
     transitivePeerDependencies:
       - webpack
+
+  '@remotion/transitions@4.0.455(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@remotion/paths': 4.0.455
+      '@remotion/shapes': 4.0.455(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+      remotion: 4.0.455(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
 
   '@remotion/web-renderer@4.0.454(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
@@ -5561,6 +5601,11 @@ snapshots:
       set-function-name: 2.0.2
 
   remotion@4.0.454(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+    dependencies:
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
+  remotion@4.0.455(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)

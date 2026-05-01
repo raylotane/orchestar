@@ -6,9 +6,13 @@ import {
   VIDEO_FPS,
   VIDEO_HEIGHT,
   VIDEO_WIDTH,
+  COFFEE_COMP_NAME,
+  defaultCoffeeBrandProps,
+  COFFEE_DURATION_IN_FRAMES,
 } from "../types/constants";
 import { Main } from "./MyComp/Main";
 import { NextLogo } from "./MyComp/NextLogo";
+import { CoffeeBrandVideo } from "./CoffeeBrand/CoffeeBrandVideo";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -32,6 +36,16 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{
           outProgress: 0,
         }}
+      />
+      {/* Coffee Brand Promotional Video */}
+      <Composition
+        id={COFFEE_COMP_NAME}
+        component={CoffeeBrandVideo}
+        durationInFrames={COFFEE_DURATION_IN_FRAMES}
+        fps={VIDEO_FPS}
+        width={VIDEO_WIDTH}
+        height={VIDEO_HEIGHT}
+        defaultProps={defaultCoffeeBrandProps}
       />
     </>
   );
