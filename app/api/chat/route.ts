@@ -3,7 +3,7 @@ import { convertToModelMessages, ToolLoopAgent, UIMessage } from "ai";
 
 const mainAgent = new ToolLoopAgent({
   model: deepseek('deepseek-reasoner'),
-  instructions: '你是 Orchestar · 灵阵 平台的AI助手，你的名字叫做小灵。',
+  instructions: '你是 Orchestar · 灵阵 平台的 AI 助手，你的名字叫做小灵。',
   tools: {
   }
 });
