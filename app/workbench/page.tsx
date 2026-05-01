@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   ResizableHandle,
@@ -6,17 +8,33 @@ import {
 } from "@/components/ui/resizable";
 import ChatContainer from "./components/ChatContainer";
 import VideoContainer from "./components/VideoContainer";
+import {
+  COFFEE_COMP_NAME,
+  COFFEE_DURATION_IN_FRAMES,
+  defaultCoffeeBrandProps,
+} from "../remotion/CoffeeBrand/types";
+
+export const initScene = {
+  sceneId: COFFEE_COMP_NAME,
+  sceneProps: defaultCoffeeBrandProps,
+  sceneMeta: {
+    durationInFrames: COFFEE_DURATION_IN_FRAMES,
+    fps: 30,
+    width: 1280,
+    height: 720,
+  },
+};
 
 const page: React.FC = () => {
   return (
     <div className="h-screen w-full">
       <ResizablePanelGroup orientation="horizontal">
         <ResizablePanel minSize={"38.2%"} maxSize={"38.2%"}>
-          <ChatContainer />
+          <ChatContainer videoInfo={initScene} />
         </ResizablePanel>
         <ResizableHandle withHandle className="bg-neutral-500" />
         <ResizablePanel>
-          <VideoContainer />
+          <VideoContainer videoInfo={initScene} />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

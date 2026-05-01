@@ -3,32 +3,20 @@
 import React from "react";
 import { Player } from "@remotion/player";
 import { CoffeeBrandVideo } from "@/app/remotion/CoffeeBrand";
-import {
-  COFFEE_COMP_NAME,
-  COFFEE_DURATION_IN_FRAMES,
-  defaultCoffeeBrandProps,
-} from "@/app/remotion/CoffeeBrand/types";
 
-export const initScene = {
-  id: COFFEE_COMP_NAME,
-  props: defaultCoffeeBrandProps,
-  meta: {
-    durationInFrames: COFFEE_DURATION_IN_FRAMES,
-    fps: 30,
-    width: 1280,
-    height: 720,
-  },
-};
+export interface IVideoContainerProps {
+  videoInfo: any;
+}
 
-const VideoContainer: React.FC = () => {
-  const { props, meta } = initScene;
+const VideoContainer: React.FC<IVideoContainerProps> = ({ videoInfo }) => {
+  const { sceneProps, sceneMeta } = videoInfo;
 
   const {
     durationInFrames: DURATION_IN_FRAMES,
     fps: VIDEO_FPS,
     width: VIDEO_WIDTH,
     height: VIDEO_HEIGHT,
-  } = meta;
+  } = sceneMeta;
 
   return (
     <div>
@@ -36,7 +24,7 @@ const VideoContainer: React.FC = () => {
         <div className="overflow-hidden rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-10 mt-16">
           <Player
             component={CoffeeBrandVideo}
-            inputProps={props}
+            inputProps={sceneProps}
             durationInFrames={DURATION_IN_FRAMES}
             fps={VIDEO_FPS}
             compositionHeight={VIDEO_HEIGHT}
