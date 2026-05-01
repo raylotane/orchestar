@@ -11,11 +11,11 @@ const page: React.FC = () => {
   return (
     <div className="h-screen w-full">
       <ResizablePanelGroup orientation="horizontal">
-        <ResizablePanel>
+        <ResizablePanel minSize={"38.2%"} maxSize={"38.2%"}>
           <ChatContainer />
         </ResizablePanel>
         <ResizableHandle withHandle className="bg-neutral-500" />
-        <ResizablePanel minSize={"50%"}>
+        <ResizablePanel>
           <VideoContainer />
         </ResizablePanel>
       </ResizablePanelGroup>
