@@ -1,4 +1,7 @@
-# Orchestar
+# Orchestar · 灵阵
+
+**Your vision, orchestrated.**
+**你说需求，AI 排布**
 
 一个基于 Next.js 16 + AI SDK 的可视化图形动画创作平台。
 
