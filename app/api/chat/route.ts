@@ -25,8 +25,7 @@ const getScenePropsSchema = tool({
 
 const getCurrentScene = tool({
   description: "获取当前渲染的场景内容",
-  inputSchema: z.object({
-  }),
+  inputSchema: z.object({}),
   outputSchema: z.object({
     sceneId: z.string().describe("场景ID"),
     sceneProps: z.object().describe("场景属性"),
@@ -36,6 +35,28 @@ const getCurrentScene = tool({
       width: z.number(),
       height: z.number(),
     }),
+  }),
+})
+
+// JSON Patch 操作类型 (RFC 6902)
+const jsonPatchOperationSchema = z.object({
+  op: z.enum(["add", "remove", "replace", "move", "copy", "test"]),
+  path: z.string().describe("操作路径，如 /sceneProps/brandName 路径应该根据 getCurrentScene 方法输入的 sceneProps 结构来定义"),
+  value: z.unknown().optional().describe("op=add/replace/test 时需要"),
+  from: z.string().optional().describe("op=move/copy 时需要源路径"),
+})
+
+const patchSceneProps = tool({
+  description: "使用 JSON Patch (RFC 6902) 修改当前场景属性",
+  inputSchema: z.object({
+    sceneId: z.string().describe("场景ID"),
+    patch: z.array(jsonPatchOperationSchema).describe("JSON Patch 操作数组"),
+  }),
+  outputSchema: z.object({
+    sceneId: z.string(),
+    sceneProps: z.object().describe("更新后的场景属性"),
+    success: z.boolean(),
+    appliedPatches: z.number().describe("成功应用的补丁数量"),
   }),
 })
 
@@ -50,7 +71,8 @@ const mainAgent = new ToolLoopAgent({
   ].join("\n"),
   tools: {
     getScenePropsSchema,
-    getCurrentScene
+    getCurrentScene,
+    patchSceneProps,
   },
 });
 

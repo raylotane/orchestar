@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -26,15 +26,18 @@ export const initScene = {
 };
 
 const page: React.FC = () => {
+
+  const [videoInfo, setVideoInfo] = useState(initScene);
+
   return (
     <div className="h-screen w-full">
       <ResizablePanelGroup orientation="horizontal">
         <ResizablePanel minSize={"38.2%"} maxSize={"38.2%"}>
-          <ChatContainer videoInfo={initScene} />
+          <ChatContainer videoInfo={videoInfo} setVideoInfo={setVideoInfo}/>
         </ResizablePanel>
         <ResizableHandle withHandle className="bg-neutral-500" />
         <ResizablePanel>
-          <VideoContainer videoInfo={initScene} />
+          <VideoContainer videoInfo={videoInfo} />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

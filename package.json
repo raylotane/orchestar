@@ -36,6 +36,7 @@
     "react-dom": "19.2.4",
     "react-resizable-panels": "^4.10.0",
     "remotion": "^4.0.454",
+    "rfc6902": "^5.2.0",
     "shadcn": "^4.6.0",
     "streamdown": "^2.5.0",
     "tailwind-merge": "^3.5.0",

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Player } from "@remotion/player";
 import { CoffeeBrandVideo } from "@/app/remotion/CoffeeBrand";
 
@@ -17,6 +17,10 @@ const VideoContainer: React.FC<IVideoContainerProps> = ({ videoInfo }) => {
     width: VIDEO_WIDTH,
     height: VIDEO_HEIGHT,
   } = sceneMeta;
+
+  useEffect(() => {
+    console.log("sceneProps", videoInfo);
+  }, [videoInfo]);
 
   return (
     <div>

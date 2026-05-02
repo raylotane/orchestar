@@ -6,7 +6,7 @@ export const SloganScene: React.FC<{ tagline: string }> = ({ tagline }) => {
   const { fps } = useVideoConfig();
 
   // Split tagline into words for staggered animation
-  const words = tagline.split("，");
+  const words = tagline?.split("，");
 
   return (
     <AbsoluteFill
@@ -42,7 +42,7 @@ export const SloganScene: React.FC<{ tagline: string }> = ({ tagline }) => {
       />
 
       <div style={{ textAlign: "center", zIndex: 1 }}>
-        {words.map((word, index) => {
+        {words?.map((word, index) => {
           const wordOpacity = interpolate(
             frame,
             [fps * (0.4 + index * 0.7), fps * (1.1 + index * 0.7)],
