@@ -133,7 +133,11 @@ const ChatContainer: React.FC<IChatContainerProps> = ({
 
   return (
     <div className="flex flex-col gap-2 py-2 h-full">
-      <MessageContainer className="px-2 flex-1" messages={messages} />
+      <MessageContainer
+        className="px-2 flex-1"
+        messages={messages}
+        onSendMessage={(text) => sendMessage({ text })}
+      />
 
       {/* 预设提示词 */}
       <div className="px-2 flex gap-2 overflow-x-auto">
