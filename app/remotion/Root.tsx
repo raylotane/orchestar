@@ -15,6 +15,12 @@ import {
   COFFEE_DURATION_IN_FRAMES,
   defaultCoffeeBrandProps,
 } from "./CoffeeBrand";
+import {
+  EcommerceShowcase,
+  ECOMMERCE_COMP_NAME,
+  ECOMMERCE_DURATION_IN_FRAMES,
+  defaultEcommerceShowcaseProps,
+} from "./EcommerceShowcase";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -48,6 +54,16 @@ export const RemotionRoot: React.FC = () => {
         width={VIDEO_WIDTH}
         height={VIDEO_HEIGHT}
         defaultProps={defaultCoffeeBrandProps}
+      />
+      {/* E-commerce Product Showcase */}
+      <Composition
+        id={ECOMMERCE_COMP_NAME}
+        component={EcommerceShowcase}
+        durationInFrames={ECOMMERCE_DURATION_IN_FRAMES}
+        fps={VIDEO_FPS}
+        width={VIDEO_WIDTH}
+        height={VIDEO_HEIGHT}
+        defaultProps={defaultEcommerceShowcaseProps}
       />
     </>
   );

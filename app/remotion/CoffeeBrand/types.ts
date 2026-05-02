@@ -39,7 +39,6 @@ export const defaultCoffeeBrandProps: z.infer<typeof CoffeeBrandProps> = {
 export const COFFEE_DURATION_IN_FRAMES = 450; // 15 seconds @ 30fps
 
 // ===== Register to global scene registry =====
-
 export const coffeeSceneDef: ISceneDefinition = {
   id: COFFEE_COMP_NAME,
   name: "Coffee Brand Promo",
