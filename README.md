@@ -76,7 +76,7 @@ pnpm render
 
 ## 环境变量
 
-复制 `.env.local.template` 为 `.env.local`，并配置所需的环境变量：
+复制 `env.local.template` 为 `.env.local`，并配置所需的环境变量：
 
 - `DEEPSEEK_API_KEY` - DeepSeek API 密钥
 
