@@ -7,7 +7,31 @@ import MessageContainer from "./components/MessageContainer";
 import { lastAssistantMessageIsCompleteWithToolCalls } from "ai";
 import { applyPatch, Operation } from "rfc6902";
 import { SceneDefinition } from "@/app/types/constants";
-import z from "zod";
+import { cn } from "@/lib/utils";
+
+// 预设提示词
+const PRESET_PROMPTS = [
+  {
+    icon: "🎬",
+    text: "切换到电商展示场景",
+  },
+  {
+    icon: "☕",
+    text: "切换到咖啡品牌场景",
+  },
+  {
+    icon: "📝",
+    text: "帮我修改品牌名称",
+  },
+  {
+    icon: "🎨",
+    text: "调整一下配色方案",
+  },
+  {
+    icon: "⏱️",
+    text: "延长视频时长到5秒",
+  },
+];
 
 // JSON Patch 操作类型 (RFC 6902)
 type JsonPatchOperation = {
@@ -110,6 +134,24 @@ const ChatContainer: React.FC<IChatContainerProps> = ({
   return (
     <div className="flex flex-col gap-2 py-2 h-full">
       <MessageContainer className="px-2 flex-1" messages={messages} />
+
+      {/* 预设提示词 */}
+      <div className="px-2 flex gap-2 overflow-x-auto">
+        {PRESET_PROMPTS.map((preset, index) => (
+          <button
+            key={index}
+            onClick={() => sendMessage({ text: preset.text })}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-full whitespace-nowrap",
+              "bg-primary/10 hover:bg-primary/20 text-primary text-sm",
+              "transition-colors cursor-pointer shrink-0"
+            )}
+          >
+            <span>{preset.icon}</span>
+            <span>{preset.text}</span>
+          </button>
+        ))}
+      </div>
 
       <ChatInput
         className="px-2"
