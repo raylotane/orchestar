@@ -3,6 +3,8 @@ import { convertToModelMessages, tool, ToolLoopAgent, UIMessage } from "ai";
 import { sceneRegistry } from "@/lib/scene-registry";
 import { coffeeSceneDef } from "@/app/remotion/CoffeeBrand/types"
 import { ecommerceSceneDef } from "@/app/remotion/EcommerceShowcase/types"
+import { productTrailerSceneDef } from "@/app/remotion/ProductTrailer/types"
+
 import z from "zod";
 import { after } from "next/server";
 
@@ -18,6 +20,7 @@ import { SceneDefinition } from "@/app/types/constants";
 
 sceneRegistry.register(coffeeSceneDef)
 sceneRegistry.register(ecommerceSceneDef)
+sceneRegistry.register(productTrailerSceneDef)
 
 
 const SCENE_CONTEXT = sceneRegistry.toSystemPrompt()
