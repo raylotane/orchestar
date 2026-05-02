@@ -4,6 +4,15 @@ import { sceneRegistry } from "@/lib/scene-registry";
 import { coffeeSceneDef } from "@/app/remotion/CoffeeBrand/types"
 import { ecommerceSceneDef } from "@/app/remotion/EcommerceShowcase/types"
 import z from "zod";
+import { after } from "next/server";
+
+import {
+  observe,
+  propagateAttributes,
+  updateActiveObservation,
+} from "@langfuse/tracing";
+import { trace } from "@opentelemetry/api";
+import { langfuseSpanProcessor } from "@/instrumentation";
 
 
 sceneRegistry.register(coffeeSceneDef)
@@ -77,13 +86,66 @@ const mainAgent = new ToolLoopAgent({
     getCurrentScene,
     patchSceneProps,
   },
+  experimental_telemetry: {
+    isEnabled: true,
+  },
+  onFinish: async (result) => {
+    // Update trace with final output after stream completes
+    updateActiveObservation({
+      output: result.content,
+    });
+    // End span manually after stream has finished
+    trace.getActiveSpan()?.end();
+  },
 });
 
-export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } = await req.json();
-  const result = await mainAgent.stream({
-    messages: await convertToModelMessages(messages),
+// export async function POST(req: Request) {
+//   const { messages }: { messages: UIMessage[] } = await req.json();
+//   const result = await mainAgent.stream({
+//     messages: await convertToModelMessages(messages),
+//   });
+
+//   return result.toUIMessageStreamResponse();
+// }
+
+const handler = async (req: Request) => {
+  const { messages, chatId, userId }: { messages: UIMessage[], chatId: string; userId: string } = await req.json();
+  // Set session id and user id on active trace
+  const inputText = messages[messages.length - 1].parts.find(
+    (part) => part.type === "text"
+  )?.text;
+  // Set input on the active trace
+  updateActiveObservation({
+    input: inputText,
   });
 
-  return result.toUIMessageStreamResponse();
+  // Add session and user context to the trace
+  return propagateAttributes(
+    {
+      traceName: "chat-message",
+      sessionId: chatId,  // Groups related messages together
+      userId,             // Track which user made the request
+    },
+    async () => {
+      const result = await mainAgent.stream({
+        messages: await convertToModelMessages(messages),
+      });
+
+      // Critical for serverless: flush traces before function terminates
+      after(async () => await langfuseSpanProcessor.forceFlush());
+      return result.toUIMessageStreamResponse();
+    }
+
+  );
+
 }
+
+
+/**
+ * Wrap handler with observe() to create a Langfuse trace
+ * @see https://langfuse.com/integrations/frameworks/vercel-ai-sdk#create-api-route-with-streaming
+ */
+export const POST = observe(handler, {
+  name: "handle-chat-message",
+  endOnExit: false, // Don't end observation until stream finishes
+});
