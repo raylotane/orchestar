@@ -1,6 +1,6 @@
 import { deepseek } from "@ai-sdk/deepseek";
 import { convertToModelMessages, tool, ToolLoopAgent, UIMessage } from "ai";
-import { applyScene, sceneRegistry } from "@/lib/scene-registry";
+import { sceneRegistry } from "@/lib/scene-registry";
 import { coffeeSceneDef } from "@/app/remotion/CoffeeBrand/types"
 import { ecommerceSceneDef } from "@/app/remotion/EcommerceShowcase/types"
 import z from "zod";
