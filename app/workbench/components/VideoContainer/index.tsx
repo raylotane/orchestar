@@ -4,10 +4,12 @@ import React, { useEffect, useMemo } from "react";
 import { Player } from "@remotion/player";
 import { CoffeeBrandVideo } from "@/app/remotion/CoffeeBrand";
 import { EcommerceShowcase } from "@/app/remotion/EcommerceShowcase";
+import { OrchestarIntroVideo } from "@/app/remotion/OrchestarIntro";
 
 const sceneMap = {
   CoffeeBrandVideo,
   EcommerceShowcase,
+  OrchestarIntro: OrchestarIntroVideo,
 };
 
 export interface IVideoContainerProps {

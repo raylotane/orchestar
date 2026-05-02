@@ -21,6 +21,12 @@ import {
   ECOMMERCE_DURATION_IN_FRAMES,
   defaultEcommerceShowcaseProps,
 } from "./EcommerceShowcase";
+import {
+  OrchestarIntroVideo,
+  ORCHESTAR_COMP_NAME,
+  ORCHESTAR_DURATION_IN_FRAMES,
+  defaultOrchestarIntroProps,
+} from "./OrchestarIntro";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -64,6 +70,16 @@ export const RemotionRoot: React.FC = () => {
         width={VIDEO_WIDTH}
         height={VIDEO_HEIGHT}
         defaultProps={defaultEcommerceShowcaseProps}
+      />
+      {/* Orchestar Product Introduction */}
+      <Composition
+        id={ORCHESTAR_COMP_NAME}
+        component={OrchestarIntroVideo}
+        durationInFrames={ORCHESTAR_DURATION_IN_FRAMES}
+        fps={VIDEO_FPS}
+        width={VIDEO_WIDTH}
+        height={VIDEO_HEIGHT}
+        defaultProps={defaultOrchestarIntroProps}
       />
     </>
   );
