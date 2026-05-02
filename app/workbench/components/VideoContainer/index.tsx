@@ -9,18 +9,22 @@ export interface IVideoContainerProps {
 }
 
 const VideoContainer: React.FC<IVideoContainerProps> = ({ videoInfo }) => {
-  const { sceneProps, sceneMeta } = videoInfo;
+  const { sceneProps, sceneMeta } = videoInfo || {};
 
   const {
     durationInFrames: DURATION_IN_FRAMES,
     fps: VIDEO_FPS,
     width: VIDEO_WIDTH,
     height: VIDEO_HEIGHT,
-  } = sceneMeta;
+  } = sceneMeta || {};
 
   useEffect(() => {
     console.log("sceneProps", videoInfo);
   }, [videoInfo]);
+
+  if (!sceneProps) {
+    return null;
+  }
 
   return (
     <div>

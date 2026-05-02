@@ -15,14 +15,14 @@ import {
 } from "../remotion/CoffeeBrand/types";
 
 export const initScene = {
-  sceneId: COFFEE_COMP_NAME,
-  sceneProps: defaultCoffeeBrandProps,
-  sceneMeta: {
-    durationInFrames: COFFEE_DURATION_IN_FRAMES,
-    fps: 30,
-    width: 1280,
-    height: 720,
-  },
+  // sceneId: COFFEE_COMP_NAME,
+  // sceneProps: defaultCoffeeBrandProps,
+  // sceneMeta: {
+  //   durationInFrames: COFFEE_DURATION_IN_FRAMES,
+  //   fps: 30,
+  //   width: 1280,
+  //   height: 720,
+  // },
 };
 
 const page: React.FC = () => {
