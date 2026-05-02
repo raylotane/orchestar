@@ -1,15 +1,21 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Player } from "@remotion/player";
 import { CoffeeBrandVideo } from "@/app/remotion/CoffeeBrand";
+import { EcommerceShowcase } from "@/app/remotion/EcommerceShowcase";
+
+const sceneMap = {
+  CoffeeBrandVideo,
+  EcommerceShowcase,
+};
 
 export interface IVideoContainerProps {
   videoInfo: any;
 }
 
 const VideoContainer: React.FC<IVideoContainerProps> = ({ videoInfo }) => {
-  const { sceneProps, sceneMeta } = videoInfo || {};
+  const { sceneProps, sceneMeta, sceneId } = videoInfo || {};
 
   const {
     durationInFrames: DURATION_IN_FRAMES,
@@ -22,16 +28,22 @@ const VideoContainer: React.FC<IVideoContainerProps> = ({ videoInfo }) => {
     console.log("sceneProps", videoInfo);
   }, [videoInfo]);
 
-  if (!sceneProps) {
+  const applyScene: React.FC<any> = useMemo(() => {
+    return sceneMap[sceneId as keyof typeof sceneMap];
+  }, [sceneId]);
+
+
+  if (!sceneProps || !sceneMeta || (!sceneMap[sceneId as keyof typeof sceneMap])) {
     return null;
   }
+
 
   return (
     <div>
       <div className="max-w-screen-md m-auto mb-5 px-4">
         <div className="overflow-hidden rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-10 mt-16">
           <Player
-            component={CoffeeBrandVideo}
+            component={applyScene}
             inputProps={sceneProps}
             durationInFrames={DURATION_IN_FRAMES}
             fps={VIDEO_FPS}

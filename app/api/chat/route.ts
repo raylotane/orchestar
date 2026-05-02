@@ -1,6 +1,6 @@
 import { deepseek } from "@ai-sdk/deepseek";
 import { convertToModelMessages, tool, ToolLoopAgent, UIMessage } from "ai";
-import { sceneRegistry } from "@/lib/scene-registry";
+import { applyScene, sceneRegistry } from "@/lib/scene-registry";
 import { coffeeSceneDef } from "@/app/remotion/CoffeeBrand/types"
 import { ecommerceSceneDef } from "@/app/remotion/EcommerceShowcase/types"
 import z from "zod";
@@ -13,6 +13,7 @@ import {
 } from "@langfuse/tracing";
 import { trace } from "@opentelemetry/api";
 import { langfuseSpanProcessor } from "@/instrumentation";
+import { SceneDefinition } from "@/app/types/constants";
 
 
 sceneRegistry.register(coffeeSceneDef)
@@ -29,9 +30,9 @@ const getScenePropsSchema = tool({
   execute: async ({ sceneId }) => {
     const scene = sceneRegistry.get(sceneId);
     if (!scene) {
-      return { error: `未找到场景: ${sceneId}`, availableScenes: sceneRegistry.list().map((s) => s.id) };
+      return { error: `未找到场景: ${sceneId}`, availableScenes: sceneRegistry.list().map((s) => s.sceneId) };
     }
-    return scene.propsSchema
+    return scene.sceneProps
   },
 })
 
@@ -72,6 +73,11 @@ const patchSceneProps = tool({
   }),
 })
 
+const applySceneTool = tool({
+  description: "应用某个场景 - 根据场景ID切换到指定场景，使用该场景的默认属性初始化",
+  inputSchema: SceneDefinition
+})
+
 const mainAgent = new ToolLoopAgent({
   model: deepseek('deepseek-reasoner'),
   instructions: [
@@ -85,6 +91,7 @@ const mainAgent = new ToolLoopAgent({
     getScenePropsSchema,
     getCurrentScene,
     patchSceneProps,
+    applyScene: applySceneTool,
   },
   experimental_telemetry: {
     isEnabled: true,

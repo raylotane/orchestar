@@ -62,7 +62,7 @@ export const ecommerceSceneDef: z.infer<typeof SceneDefinition> = {
   sceneId: ECOMMERCE_COMP_NAME,
   sceneName: "E-commerce Product Showcase",
   sceneDescription:
-    "电商商品展示视频模板，包含产品封面、特色介绍、价格展示、结尾CTA等分镜。适用于数码产品、服装鞋帽、美妆护肤等电商场景。",
+    "电商商品展示视频模板，包含产品封面、特色介绍、价格展示、结尾CTA等分镜。适用于数码产品、服装鞋帽、美妆护肤等电商场景。建议最小时长480帧",
   sceneProps: EcommerceShowcaseProps,
   sceneDefaultProps: defaultEcommerceShowcaseProps,
   sceneMeta: {

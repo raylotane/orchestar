@@ -6,6 +6,8 @@ import { useChat } from "@ai-sdk/react";
 import MessageContainer from "./components/MessageContainer";
 import { lastAssistantMessageIsCompleteWithToolCalls } from "ai";
 import { applyPatch, Operation } from "rfc6902";
+import { SceneDefinition } from "@/app/types/constants";
+import z from "zod";
 
 // JSON Patch 操作类型 (RFC 6902)
 type JsonPatchOperation = {
@@ -50,17 +52,54 @@ const ChatContainer: React.FC<IChatContainerProps> = ({
           };
           // const { sceneProps } = videoInfo;
           // rfc6902: 第一个参数会被直接修改，返回错误数组
-          const patchedProps = JSON.parse(JSON.stringify(videoInfo));
-          const errors = applyPatch(patchedProps, patch as Operation[]);
+          const patchedVideoInfo = JSON.parse(JSON.stringify(videoInfo));
+          const errors = applyPatch(patchedVideoInfo, patch as Operation[]);
           const success = errors.length === 0;
+          // 做 zod 验证
+          const paramResult = SceneDefinition.safeParse(patchedVideoInfo);
+          if (paramResult.success) {
+            toolCallInfo.output = {
+              sceneId: videoInfo.sceneId,
+              sceneProps: patchedVideoInfo,
+              success,
+              appliedPatches: success ? patch.length : 0,
+              errors: errors.length > 0 ? errors.map(String) : undefined,
+            };
+            setVideoInfo(patchedVideoInfo);
+          } else {
+            toolCallInfo.output = {
+              sceneId: videoInfo.sceneId,
+              sceneProps: patchedVideoInfo,
+              success: false,
+              error: paramResult.error,
+            };
+          }
+
           toolCallInfo.output = {
             sceneId: videoInfo.sceneId,
-            sceneProps: patchedProps,
+            sceneProps: patchedVideoInfo,
             success,
             appliedPatches: success ? patch.length : 0,
             errors: errors.length > 0 ? errors.map(String) : undefined,
           };
-          setVideoInfo(patchedProps);
+          setVideoInfo(patchedVideoInfo);
+          break;
+        }
+        case "applyScene": {
+          const checkResult = SceneDefinition.safeParse(toolInput);
+          if (!checkResult.success) {
+            toolCallInfo.output = {
+              success: false,
+              error: checkResult.error,
+            };
+            break;
+          }
+
+          toolCallInfo.output = {
+            success: true,
+            message: "场景应用成功",
+          };
+          setVideoInfo(toolInput);
           break;
         }
       }

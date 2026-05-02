@@ -8,6 +8,30 @@ export interface SceneMeta {
   height?: number;
 }
 
+/**
+ * 应用某个场景 - 根据场景ID初始化场景信息
+ * @param sceneId 场景ID
+ * @returns 场景完整信息（sceneId, sceneProps, sceneMeta），如果场景不存在返回null
+ */
+export function applyScene(sceneId: string): z.infer<typeof SceneDefinition> | null {
+  const scene = sceneRegistry.get(sceneId);
+  if (!scene) {
+    console.error(`[applyScene] 场景未找到: ${sceneId}`);
+    return null;
+  }
+
+  // 使用场景的默认属性初始化
+  const sceneProps = scene.sceneDefaultProps ?? {};
+
+  return {
+    sceneId: scene.sceneId,
+    sceneName: scene.sceneName,
+    sceneDescription: scene.sceneDescription,
+    sceneProps,
+    sceneMeta: scene.sceneMeta,
+  };
+}
+
 class SceneRegistry {
   private _scenes = new Map<string, z.infer<typeof SceneDefinition>>();
 

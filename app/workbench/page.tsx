@@ -17,14 +17,40 @@ import { SceneDefinition } from "../types/constants";
 import z from "zod";
 
 export const initScene: Partial<z.infer<typeof SceneDefinition>> = {
-  // sceneId: COFFEE_COMP_NAME,
-  // sceneProps: defaultCoffeeBrandProps,
-  // sceneMeta: {
-  //   durationInFrames: COFFEE_DURATION_IN_FRAMES,
-  //   fps: 30,
-  //   width: 1280,
-  //   height: 720,
-  // },
+  sceneId: "CoffeeBrandVideo",
+  sceneProps: {
+    brandName: "茶语时光",
+    tagline: "每一杯，都是治愈的味道",
+    features: [
+      {
+        icon: "🍓",
+        title: "鲜果茶饮",
+        desc: "当季新鲜水果，每一口都是自然的馈赠",
+      },
+      {
+        icon: "🧋",
+        title: "Q弹珍珠",
+        desc: "手工熬煮黑糖珍珠，嚼劲十足",
+      },
+      {
+        icon: "🥛",
+        title: "醇厚奶盖",
+        desc: "新西兰进口奶油，绵密丝滑",
+      },
+      {
+        icon: "🧊",
+        title: "冰爽一夏",
+        desc: "夏日限定冰沙系列，清凉解暑",
+      },
+    ],
+    socialPlatform: "@茶语时光",
+  },
+  sceneMeta: {
+    durationInFrames: 300,
+    fps: 30,
+    width: 1920,
+    height: 1080,
+  },
 };
 
 const page: React.FC = () => {
