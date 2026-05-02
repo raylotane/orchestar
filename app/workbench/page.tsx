@@ -8,11 +8,6 @@ import {
 } from "@/components/ui/resizable";
 import ChatContainer from "./components/ChatContainer";
 import VideoContainer from "./components/VideoContainer";
-import {
-  COFFEE_COMP_NAME,
-  COFFEE_DURATION_IN_FRAMES,
-  defaultCoffeeBrandProps,
-} from "../remotion/CoffeeBrand/types";
 import { SceneDefinition } from "../types/constants";
 import z from "zod";
 

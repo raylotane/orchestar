@@ -4,10 +4,14 @@ import React, { useState } from "react";
 import ChatInput from "./components/ChatInput";
 import { useChat } from "@ai-sdk/react";
 import MessageContainer from "./components/MessageContainer";
-import { lastAssistantMessageIsCompleteWithToolCalls } from "ai";
+import {
+  DefaultChatTransport,
+  lastAssistantMessageIsCompleteWithToolCalls,
+} from "ai";
 import { applyPatch, Operation } from "rfc6902";
 import { SceneDefinition } from "@/app/types/constants";
 import { cn } from "@/lib/utils";
+import { nanoid } from "nanoid";
 
 // 预设提示词
 const PRESET_PROMPTS = [
@@ -53,8 +57,16 @@ const ChatContainer: React.FC<IChatContainerProps> = ({
 }) => {
   const [prompt, setPrompt] = useState("");
 
-  const { messages, sendMessage, status: chatStatus, addToolOutput } = useChat({
+  const {
+    messages,
+    sendMessage,
+    status: chatStatus,
+    addToolOutput,
+  } = useChat({
     sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
+    transport: new DefaultChatTransport({
+      body: { chatId: `chat-${nanoid()}` },
+    }),
     onToolCall: ({ toolCall }) => {
       const { toolName, toolCallId, input } = toolCall;
       const toolInput = input as Record<string, unknown>;
