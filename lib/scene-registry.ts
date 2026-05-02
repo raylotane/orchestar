@@ -1,4 +1,5 @@
-import { ZodObject } from "zod";
+import { SceneDefinition } from "@/app/types/constants";
+import z from "zod";
 
 export interface SceneMeta {
   durationInFrames: number;
@@ -7,24 +8,15 @@ export interface SceneMeta {
   height?: number;
 }
 
-export interface ISceneDefinition<TProps = Record<string, unknown>> {
-  id: string;
-  name: string;
-  description: string;
-  propsSchema: ZodObject<any>;
-  defaultProps: TProps;
-  meta: SceneMeta;
-}
-
 class SceneRegistry {
-  private _scenes = new Map<string, ISceneDefinition>();
+  private _scenes = new Map<string, z.infer<typeof SceneDefinition>>();
 
   /**
    * @param def 场景定义
    * @returns 
    */
-  register(def: ISceneDefinition<Record<string, unknown>>): this {
-    this._scenes.set(def.id, def);
+  register(def: z.infer<typeof SceneDefinition>): this {
+    this._scenes.set(def.sceneId, def);
     return this;
   }
 
@@ -33,12 +25,12 @@ class SceneRegistry {
    * @param id 场景ID
    * @returns 
    */
-  get(id: string): ISceneDefinition | undefined {
+  get(id: string): z.infer<typeof SceneDefinition> | undefined {
     return this._scenes.get(id);
   }
 
   /** List all registered scenes */
-  list(): ISceneDefinition[] {
+  list(): z.infer<typeof SceneDefinition>[] {
     return Array.from(this._scenes.values());
   }
 
@@ -54,8 +46,8 @@ class SceneRegistry {
     prompt += `You can help users generate video content using these templates:\n\n`;
 
     for (const s of scenes) {
-      prompt += `### ${s.name} (\`${s.id}\`)\n`;
-      prompt += `${s.description}\n`;
+      prompt += `### ${s.sceneName} (\`${s.sceneId}\`)\n`;
+      prompt += `${s.sceneDescription}\n`;
       // prompt += `- Duration: ${s.meta.durationInFrames} frames @ ${s.meta.fps ?? 30}fps (~${((s.meta.durationInFrames / (s.meta.fps ?? 30))).toFixed(1)}s)\n`;
       // if (s.meta.width && s.meta.height) {
       //   prompt += `- Resolution: ${s.meta.width}x${s.meta.height}\n`;

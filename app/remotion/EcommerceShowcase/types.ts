@@ -1,5 +1,5 @@
+import { SceneDefinition } from "@/app/types/constants";
 import { z } from "zod";
-import { type ISceneDefinition } from "@/lib/scene-registry";
 
 export const EcommerceShowcaseProps = z.object({
   productName: z.string(),
@@ -58,14 +58,14 @@ export const defaultEcommerceShowcaseProps: EcommerceShowcaseProps = {
 };
 
 // ===== Register to global scene registry =====
-export const ecommerceSceneDef: ISceneDefinition = {
-  id: ECOMMERCE_COMP_NAME,
-  name: "E-commerce Product Showcase",
-  description:
+export const ecommerceSceneDef: z.infer<typeof SceneDefinition> = {
+  sceneId: ECOMMERCE_COMP_NAME,
+  sceneName: "E-commerce Product Showcase",
+  sceneDescription:
     "电商商品展示视频模板，包含产品封面、特色介绍、价格展示、结尾CTA等分镜。适用于数码产品、服装鞋帽、美妆护肤等电商场景。",
-  propsSchema: EcommerceShowcaseProps,
-  defaultProps: defaultEcommerceShowcaseProps,
-  meta: {
+  sceneProps: EcommerceShowcaseProps,
+  sceneDefaultProps: defaultEcommerceShowcaseProps,
+  sceneMeta: {
     durationInFrames: ECOMMERCE_DURATION_IN_FRAMES,
     fps: 30,
     width: 1280,

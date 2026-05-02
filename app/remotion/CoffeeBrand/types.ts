@@ -1,5 +1,5 @@
+import { SceneDefinition } from "@/app/types/constants";
 import { z } from "zod";
-import { type ISceneDefinition } from "@/lib/scene-registry";
 
 // ===== Coffee Brand Video Config =====
 export const COFFEE_COMP_NAME = "CoffeeBrandVideo";
@@ -39,14 +39,14 @@ export const defaultCoffeeBrandProps: z.infer<typeof CoffeeBrandProps> = {
 export const COFFEE_DURATION_IN_FRAMES = 450; // 15 seconds @ 30fps
 
 // ===== Register to global scene registry =====
-export const coffeeSceneDef: ISceneDefinition = {
-  id: COFFEE_COMP_NAME,
-  name: "Coffee Brand Promo",
-  description:
+export const coffeeSceneDef: z.infer<typeof SceneDefinition>= {
+  sceneId: COFFEE_COMP_NAME,
+  sceneName: "Coffee Brand Promo",
+  sceneDescription:
     "咖啡品牌宣传视频模板，包含开场动画、标语展示、产品特色卡片、结尾CTA等分镜。适用于咖啡店、烘焙品牌、精品咖啡等推广场景。",
-  propsSchema: CoffeeBrandProps,
-  defaultProps: defaultCoffeeBrandProps,
-  meta: {
+  sceneProps: CoffeeBrandProps,
+  sceneDefaultProps: defaultCoffeeBrandProps,
+  sceneMeta: {
     durationInFrames: COFFEE_DURATION_IN_FRAMES,
     fps: 30,
     width: 1280,
