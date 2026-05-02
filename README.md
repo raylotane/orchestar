@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Orchestar
 
-## Getting Started
+一个基于 Next.js 16 + AI SDK 的可视化图形动画创作平台。
 
-First, run the development server:
+## 技术栈
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **框架**: Next.js 16.2.4
+- **UI**: React 19, Tailwind CSS 4, Radix UI, shadcn
+- **动画**: Remotion, Motion
+- **AI**: AI SDK + DeepSeek
+- **状态管理**: Zustand
+- **类型**: TypeScript, Zod
+
+## 目录结构
+
+```
+app/
+├── api/                    # API 路由
+├── remotion/              # Remotion 动画组件
+├── types/                  # TypeScript 类型定义
+├── workbench/              # 工作台页面
+│   └── components/
+│       ├── VideoContainer/ # 视频播放器容器
+│       └── ...
+components/
+├── ai-elements/           # AI 元素组件
+├── ui/                    # shadcn/ui 组件
+└── theme-provider.tsx     # 主题提供者
+
+scripts/
+└── deploy.mjs             # 部署脚本
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 快速开始
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 安装依赖
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm install
+```
 
-## Learn More
+### 开发模式
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 构建生产版本
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm build
+```
 
-## Deploy on Vercel
+### 启动生产服务
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Remotion 动画
+
+### 启动 Remotion Studio
+
+```bash
+pnpm remotion
+```
+
+### 渲染视频
+
+```bash
+pnpm render
+```
+
+## 环境变量
+
+复制 `.env.local.template` 为 `.env.local`，并配置所需的环境变量：
+
+- `DEEPSEEK_API_KEY` - DeepSeek API 密钥
+
+## 主要功能
+
+- **可视化编辑**: 直观的拖拽式界面
+- **AI 辅助创作**: 通过 AI 对话式生成场景
+- **实时预览**: 基于 Remotion 的实时视频预览
+- **动画系统**: 支持关键帧动画和过渡效果
+- **多场景支持**: CoffeeBrandVideo、EcommerceShowcase 等预设场景
+
+## 开发指南
+
+1. 遵循 Next.js 16 的最新规范（参见 `AGENTS.md`）
+2. 使用 shadcn 管理 UI 组件
+3. 动画组件使用 Remotion 实现
+4. AI 相关功能通过 AI SDK 集成

@@ -32,16 +32,18 @@ const VideoContainer: React.FC<IVideoContainerProps> = ({ videoInfo }) => {
     return sceneMap[sceneId as keyof typeof sceneMap];
   }, [sceneId]);
 
-
-  if (!sceneProps || !sceneMeta || (!sceneMap[sceneId as keyof typeof sceneMap])) {
+  if (
+    !sceneProps ||
+    !sceneMeta ||
+    !sceneMap[sceneId as keyof typeof sceneMap]
+  ) {
     return null;
   }
 
-
   return (
     <div>
-      <div className="max-w-screen-md m-auto mb-5 px-4">
-        <div className="overflow-hidden rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-10 mt-16">
+      <div className="max-w-screen-md m-auto mb-5 px-4 overflow-hidden">
+        <div className="overflow-hidden rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-10 mt-30 border-[1px] border-1">
           <Player
             component={applyScene}
             inputProps={sceneProps}
@@ -59,6 +61,10 @@ const VideoContainer: React.FC<IVideoContainerProps> = ({ videoInfo }) => {
             autoPlay
             loop
           />
+        </div>
+        {/* 水印 */}
+        <div className="text-center text-[30px] text-neutral-800 mt-40">
+          Orchestar · 灵阵
         </div>
       </div>
     </div>
