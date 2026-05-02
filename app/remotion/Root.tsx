@@ -27,6 +27,10 @@ import {
   ORCHESTAR_DURATION_IN_FRAMES,
   defaultOrchestarIntroProps,
 } from "./OrchestarIntro";
+import {
+  ProductTrailer,
+} from "./ProductTrailer";
+import { defaultProductTrailerProps, PRODUCT_TRAILER_COMP_NAME, PRODUCT_TRAILER_DURATION_IN_FRAMES } from "./ProductTrailer/types";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -80,6 +84,16 @@ export const RemotionRoot: React.FC = () => {
         width={VIDEO_WIDTH}
         height={VIDEO_HEIGHT}
         defaultProps={defaultOrchestarIntroProps}
+      />
+      {/* Product Trailer - Scene Templates Showcase */}
+      <Composition
+        id={PRODUCT_TRAILER_COMP_NAME}
+        component={ProductTrailer}
+        durationInFrames={PRODUCT_TRAILER_DURATION_IN_FRAMES}
+        fps={VIDEO_FPS}
+        width={VIDEO_WIDTH}
+        height={VIDEO_HEIGHT}
+        defaultProps={defaultProductTrailerProps}
       />
     </>
   );
