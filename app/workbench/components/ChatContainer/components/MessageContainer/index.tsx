@@ -1,11 +1,12 @@
+"use client"
+
 import { cn } from "@/lib/utils";
-import { UIMessage } from "ai";
+import { ChatStatus, UIMessage } from "ai";
 import React from "react";
 
 import {
   Conversation,
   ConversationContent,
-  ConversationDownload,
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
@@ -15,11 +16,13 @@ import {
   MessageContent,
   MessageResponse,
 } from "@/components/ai-elements/message";
+import MessageParts from "./MessageParts";
 
 export interface IMessageContainerProps
   extends React.HTMLAttributes<HTMLDivElement> {
   messages: UIMessage[];
   onSendMessage?: (text: string) => void;
+  chatStatus: ChatStatus;
 }
 
 // 场景提示词示例
@@ -80,7 +83,10 @@ const MessageContainer: React.FC<IMessageContainerProps> = ({
   className,
   messages,
   onSendMessage,
+  chatStatus,
 }) => {
+  const isStreaming = chatStatus === "streaming";
+
   return (
     <div className={cn(className, "h-full overflow-x-hidden")}>
       <Conversation>
@@ -122,21 +128,14 @@ const MessageContainer: React.FC<IMessageContainerProps> = ({
               </div>
             </ConversationEmptyState>
           ) : (
-            messages.map((message) => (
+            messages.map((message, index) => (
               <Message from={message.role} key={message.id}>
                 <MessageContent>
-                  {message.parts.map((part, i) => {
-                    switch (part.type) {
-                      case "text": // we don't use any reasoning or tool calls in this example
-                        return (
-                          <MessageResponse key={`${message.id}-${i}`}>
-                            {part.text}
-                          </MessageResponse>
-                        );
-                      default:
-                        return null;
-                    }
-                  })}
+                  <MessageParts
+                    message={message}
+                    isLastMessage={index === messages.length - 1}
+                    isStreaming={isStreaming}
+                  />
                 </MessageContent>
               </Message>
             ))

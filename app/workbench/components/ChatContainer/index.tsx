@@ -53,7 +53,7 @@ const ChatContainer: React.FC<IChatContainerProps> = ({
 }) => {
   const [prompt, setPrompt] = useState("");
 
-  const { messages, sendMessage, addToolOutput } = useChat({
+  const { messages, sendMessage, status: chatStatus, addToolOutput } = useChat({
     sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
     onToolCall: ({ toolCall }) => {
       const { toolName, toolCallId, input } = toolCall;
@@ -137,6 +137,7 @@ const ChatContainer: React.FC<IChatContainerProps> = ({
         className="px-2 flex-1"
         messages={messages}
         onSendMessage={(text) => sendMessage({ text })}
+        chatStatus={chatStatus}
       />
 
       {/* 预设提示词 */}
